@@ -1,4 +1,5 @@
 from .settings import *
+import django_heroku
 
 DEBUG = False
 
@@ -35,3 +36,6 @@ AWS_SECRET_ACCESS_KEY = 'xZC9krWBaat65SBql8aN+EXP8WStcCSAMlah1sYe'
 # Authentication
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
