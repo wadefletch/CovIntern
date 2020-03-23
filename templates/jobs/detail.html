@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'jobs/components/back_button.html' %}
+    <div class="columns">
+        <div class="column is-three-quarters-desktop is-full-touch">
+            <article class="media box">
+                <figure class="media-left"><img src="{{ job.company.logo.url }}" height="64" width="64"></figure>
+                <figure class="media-content">
+                    <h1 class="title">{{ job.title }}</h1>
+                    <h2 class="subtitle" style="margin-bottom: 0.2em;">
+                        {{ job.company.name }} // {{ job.company.location }} (Remote)</h2>
+                    <a href="{{ job.company.url }}">{{ job.company.url }}</a>
+                </figure>
+                <figure class="media-right is-hidden-mobile">
+                    <a href="{{ job.application_link }}">
+                        <button class="button is-warning"><b><i class="fas fa-edit"></i> APPLY NOW</b></button>
+                    </a>
+                    <div class="has-text-centered is-uppercase has-text-grey is-size-6">{{ job.time_since_posted }}</div>
+                </figure>
+            </article>
+
+            <div class="is-hidden-tablet">
+                <a href="{{ job.application_link }}">
+                    <button class="button is-warning is-fullwidth box is-paddingless" style="margin-bottom: 1.5rem;"><b><i
+                            class="fas fa-edit"></i> APPLY NOW</b></button>
+                </a>
+            </div>
+
+            <div class="box">
+                <p class="title is-4" style="margin-bottom: 0.2em;">Job Description</p>
+                <p class="text">{{ job.description }}</p>
+
+                <p class="title is-4" style="margin: 1em 0 0.2em 0;">Qualifications</p>
+                <p>{{ job.qualifications }}</p>
+            </div>
+            {% include 'jobs/components/disclaimers.html' %}
+        </div>
+        <div class="column is-one-quarter is-hidden-touch">
+            <div class="title is-5"><span class="is-size-6 has-text-weight-semibold">More jobs in</span><br>
+                {{ job.category.name }}</div>
+            {% for job in related_jobs %}
+                {% include 'jobs/components/mini_listing.html' with job=job %}
+            {% endfor %}
+            <div style="margin: -0.6em 0 1em 1em;">
+                <a href="{% url 'jobs:category' job.category.id %}" class="is-size-7">
+                    View more internships in <b>{{ job.category.name }}</b> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% include 'jobs/components/back_button.html' %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="title">Find an Internship</h2>
+
+    <p class="content"></p>
+
+    {% regroup job_list by category as categories_list %}
+
+    <div class="buttons is-centered">
+        {% for category in categories_list %}
+            <a href="{% url 'jobs:category' category.grouper.id %}">
+                <button class="button is-light">
+                    {{ category.grouper.name }}
+                </button>
+            </a>
+        {% endfor %}
+    </div>
+
+    {% include 'jobs/components/searchbar.html' %}
+
+    {% for category in categories_list %}
+        <h1 class="title is-4 has-text-{{ category.grouper.color }}">{{ category.grouper.name }}</h1>
+        {% for job in category.list|slice:":5" %}
+            {% include 'jobs/components/individual_listing.html' with job=job %}
+        {% endfor %}
+        {% if category.list|length > 5 %}
+            <div class="has-text-right" style="margin: -0.6em 1em 1em 0;">
+                <a href="{% url 'jobs:category' category.grouper.id %}">
+                    View {{ category.list|length|add:"-10" }} more internships in {{ category.grouper.name }}
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

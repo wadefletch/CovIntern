@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bulma/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'truncate-overflow.css' %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'burger.js' %}"></script>
+    <script src="{% static 'spinner.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div id="load">
+    <div id="spinner"></div>
+</div>
+<div class="wrapper">
+    <div class="section" style="padding-top: 0;">
+        <div class="container">
+            <nav class="navbar is-white is-fixed-top-touch" role="navigation" aria-label="main navigation"
+                 style="margin-bottom: 1.5em;">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="{% url 'main:index' %}"><h4 class="title is-4 has-background-warning">
+                        COVINTERN</h4></a>
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                       data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="{% url 'jobs:index' %}">Jobs</a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Categories
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                {% for category in categories %}
+                                    <a class="navbar-item" href="{% url 'jobs:category' category.id %}">
+                                        {{ category.name }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <a class="navbar-item" href="{% url 'main:about' %}">About</a>
+                    </div>
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a href="{% url 'jobs:create' %}">
+                                    <button class="button is-warning">
+                                        <strong>
+                                            POST AN INTERNSHIP
+                                        </strong>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div style="width: 100%; height:4em;" class="is-hidden-desktop"></div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

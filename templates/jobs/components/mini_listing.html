@@ -1,0 +1,21 @@
+<a class="box getBigger" href="{% url 'jobs:detail' job.id %}">
+    <article class="media">
+        <figure class="media-left">
+            <img src="{{ job.company.logo.url }}" height="24" width="24" alt="{{ job.company.name }} logo">
+        </figure>
+        <figure class="media-content">
+            <div class="title is-6">{{ job.title }}</div>
+            <div class="subtitle is-7" style="margin-bottom: 0.2em;">
+                <b>{{ job.company.name }}</b><br>
+                Posted {{ job.time_since_posted }}
+            </div>
+        </figure>
+        <!--
+        <figure class="media-right">
+            <a href="{% url 'jobs:detail' job.id %}">
+                <div class="button is-warning"><b>View</b></div>
+            </a>
+        </figure>
+        -->
+    </article>
+</a>

@@ -1,0 +1,16 @@
+:root {
+    /* Not my favorite that line-height has to be united, but needed */
+    --lh: 1.5rem;
+}
+
+html {
+    line-height: var(--lh);
+}
+
+.truncate-overflow {
+    --max-lines: 2;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    padding-right: 1rem; /* space for ellipsis */
+}

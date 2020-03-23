@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container is-paddingless" style="max-width: 960px;">
+        <section class="columns is-vcentered">
+            <div class="column is-half is-pulled-right">
+                <img src="{% static 'index_header.svg' %}">
+            </div>
+            <div class="column is-half">
+                <h1 class="title is-spaced is-1">Stuck at home?</h1>
+                <h2 class="subtitle">Find a remote internship with top startups and companies.</h2>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <a class="button is-warning is-medium" href="{% url 'jobs:index' %}">
+                            Find Jobs
+                        </a>
+                    </div>
+                    <div class="control">
+                        <a class="button is-light is-medium" href="#">
+                            Post a Job
+                        </a>
+                    </div>
+                </div>
+                <!--<div id="spacer" style="min-height: 5rem;"></div>-->
+            </div>
+        </section>
+    </div>
+{% endblock %}

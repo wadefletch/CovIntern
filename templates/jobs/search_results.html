@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title">Search Results</h1>
+
+    {% include 'jobs/components/searchbar.html' %}
+
+    <script>
+        $(".searchbar").val("{{ view.args.0 }}");
+    </script>
+
+    {% for job in job_list %}
+        {% include 'jobs/components/individual_listing.html' with job=job %}
+    {% endfor %}
+{% endblock %}

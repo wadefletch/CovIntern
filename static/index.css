@@ -1,0 +1,28 @@
+#imageWrapper {
+    position: absolute;
+    margin-left: 50%;
+    width: 50%;
+    height: 100%;
+}
+
+#image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#triangleCover {
+    position: absolute;
+    margin-left: -6rem;
+    width: 12rem;
+    height: 100%;
+    color: white;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    clip: auto;
+    position: absolute;
+    overflow: hidden;
+}

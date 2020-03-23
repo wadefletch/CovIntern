@@ -1,0 +1,24 @@
+<div class="box">
+    <article class="media">
+        <figure class="media-left">
+            <img src="{{ job.company.logo.url }}" height="64" width="64" alt="{{ job.company.name }} logo">
+        </figure>
+        <figure class="media-content">
+            <div class="title is-4 is-size-5-mobile">{{ job.title }}</div>
+            <div class="subtitle is-5 is-size-6-mobile" style="margin-bottom: 0.2em;">{{ job.company.name }}
+                // {{ job.company.location }} (Remote)
+            </div>
+            <p class="text is-size-6 truncate-overflow is-hidden-mobile">{{ job.description }}</p>
+        </figure>
+        <figure class="media-right is-hidden-mobile">
+            <a href="{% url 'jobs:detail' job.id %}">
+                <div class="button is-warning"><b>View</b></div>
+            </a>
+        </figure>
+    </article>
+    <div class="is-hidden-tablet" style="margin-top: 0.8em;">
+        <a href="{% url 'jobs:detail' job.id %}">
+            <div class="button is-warning is-fullwidth"><b>View</b></div>
+        </a>
+    </div>
+</div>
