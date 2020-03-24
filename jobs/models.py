@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class Company(models.Model):
     name = models.CharField(max_length=128)
     location = models.CharField(max_length=64)
@@ -40,7 +41,7 @@ class Job(models.Model):
         time = timezone.now()
         if self.posted.hour == time.hour:
             delta = str(time.minute - self.posted.minute)
-            return delta + f" minute{'s'*(int(delta) != 1)} ago"
+            return delta + f" minute{'s' * (int(delta) != 1)} ago"
         elif self.posted.day == time.day:
             delta = str(time.hour - self.posted.hour)
             return delta + f" hour{'s' * (int(delta) != 1)} ago"

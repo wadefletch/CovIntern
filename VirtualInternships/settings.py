@@ -142,3 +142,7 @@ AWS_SECRET_ACCESS_KEY = 'xZC9krWBaat65SBql8aN+EXP8WStcCSAMlah1sYe'
 # Authentication
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# MailChimp
+MAILCHIMP_API_KEY = '04a1957c7954701ab029d39f051ca7b8-us19'
+MAILCHIMP_SUBSCRIBE_LIST_ID = '9ab57e18c7'

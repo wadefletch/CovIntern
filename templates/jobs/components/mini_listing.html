@@ -1,4 +1,4 @@
-<a class="box getBigger" href="{% url 'jobs:detail' job.id %}">
+<a class="box getBigger" href="{% url 'jobs:detail' job.id %}" style="padding: 1em;">
     <article class="media">
         <figure class="media-left">
             <img src="{{ job.company.logo.url }}" height="24" width="24" alt="{{ job.company.name }} logo">
@@ -10,12 +10,5 @@
                 Posted {{ job.time_since_posted }}
             </div>
         </figure>
-        <!--
-        <figure class="media-right">
-            <a href="{% url 'jobs:detail' job.id %}">
-                <div class="button is-warning"><b>View</b></div>
-            </a>
-        </figure>
-        -->
     </article>
 </a>

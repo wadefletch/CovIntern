@@ -20,20 +20,28 @@
 
     {% include 'jobs/components/searchbar.html' %}
 
-    {% for category in categories_list %}
-        <h1 class="title is-4 has-text-{{ category.grouper.color }}">{{ category.grouper.name }}</h1>
-        {% for job in category.list|slice:":5" %}
-            {% include 'jobs/components/individual_listing.html' with job=job %}
-        {% endfor %}
-        {% if category.list|length > 5 %}
-            <div class="has-text-right" style="margin: -0.6em 1em 1em 0;">
-                <a class="button is-warning" href="{% url 'jobs:category' category.grouper.id %}">
-                    <span>View {{ category.list|length|add:"-5" }} more internships in {{ category.grouper.name }}</span>
-                    <span class="icon is-small">
+    <div class="columns">
+        <div class="column is-three-quarters-desktop is-full-touch">
+            {% for category in categories_list %}
+                <h1 class="title is-4 has-text-{{ category.grouper.color }}">{{ category.grouper.name }}</h1>
+                {% for job in category.list|slice:":5" %}
+                    {% include 'jobs/components/individual_listing.html' with job=job %}
+                {% endfor %}
+                {% if category.list|length > 5 %}
+                    <div class="has-text-right" style="margin: -0.6em 1em 1em 0;">
+                        <a class="button is-warning" href="{% url 'jobs:category' category.grouper.id %}">
+                            <span>View {{ category.list|length|add:"-5" }} more internships in {{ category.grouper.name }}</span>
+                            <span class="icon is-small">
                         <i class="fas fa-chevron-right"></i>
                     </span>
-                </a>
-            </div>
-        {% endif %}
-    {% endfor %}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    <div class="column is-one-quarter-desktop is-hidden" style="margin-top: 51px;">
+        <h1 class="title is-6">What is a remote internship?</h1>
+        <p class="content is-6">A remote internship is like an internship but kinda worse in a lot of ways. We're doing what we gotta in the midst of a global pandemic though.</p>
+    </div>
+    </div>
 {% endblock %}

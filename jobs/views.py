@@ -13,7 +13,7 @@ class JobListView(generic.ListView):
 
 class JobCategoryListView(generic.ListView):
     model = Job
-    paginate_by = 10
+    paginate_by = 20
     template_name = 'jobs/category.html'
 
     def get_queryset(self):
@@ -38,7 +38,7 @@ class JobDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
 
         context['related_jobs'] = Job.objects.filter(category=self.get_object().category).exclude(
-            id=self.kwargs['pk']).order_by('-posted')[:5]
+            id=self.kwargs['pk']).order_by('-posted')
         # context['related_jobs'] = Job.objects.all()
         return context
 

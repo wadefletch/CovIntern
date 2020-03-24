@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'bulma/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'truncate-overflow.css' %}">
+    <link rel="stylesheet" href="{% static "bulma/styles.css" %}">
+    <link rel="stylesheet" href="{% static "truncate-overflow.css" %}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-    <script src="{% static 'burger.js' %}"></script>
-    <script src="{% static 'spinner.js' %}"></script>
-    <link href="{% static 'index.css' %}" rel="stylesheet">
+    <script src="{% static "burger.js" %}"></script>
+    <script src="{% static "spinner.js" %}"></script>
+    <link href="{% static "index.css" %}" rel="stylesheet">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -21,7 +21,7 @@
 <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation"
      style="margin-bottom: 1.5em; background: none;">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{% url 'main:index' %}"><h4 class="title is-4 has-background-warning">
+        <a class="navbar-item" href="{% url "main:index" %}"><h4 class="title is-4 has-background-warning">
             COVINTERN</h4></a>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
            data-target="navbarBasicExample">
@@ -33,25 +33,26 @@
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="{% url 'jobs:index' %}">Jobs</a>
-            <a class="navbar-item" href="{% url 'main:about' %}">About</a>
+            <a class="navbar-item" href="{% url "jobs:index" %}">Jobs</a>
+            <a class="navbar-item" href="{% url "main:about" %}">About</a>
         </div>
     </div>
 </nav>
 <div style="width: 100%; height:4em;" class="is-hidden-desktop"></div>
-<div style="position: absolute; margin-top: 10%;">
+<div id="imageWrapper" class="is-hidden-touch">
+    <svg id="triangleCover" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="50,0 100,0 50,100 50,100"></polygon>
+    </svg>
+    <img id="image"
+         src="{% block image %}{% endblock %}"
+         alt="Remote work">
+</div>
+<div class="section columns is-vcentered" style="position: absolute; height: 100%;">
     <div class="column is-half-desktop is-full-touch has-text-centered-touch">
         {% block content %}
         {% endblock %}
     </div>
 </div>
-<div id='imageWrapper' class="is-hidden-touch">
-    <svg id="triangleCover" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="50,0 100,0 50,100 50,100"></polygon>
-    </svg>
-    <img id='image'
-         src="{% block image %}{% endblock %}"
-         alt="Remote work">
-</div>
+
 </body>
 </html>
