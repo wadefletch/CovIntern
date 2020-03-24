@@ -29,7 +29,7 @@
                 {% endfor %}
                 {% if category.list|length > 5 %}
                     <div class="has-text-right" style="margin: -0.6em 1em 1em 0;">
-                        <a class="button is-warning" href="{% url 'jobs:category' category.grouper.id %}">
+                        <a class="button is-warning is-small" href="{% url 'jobs:category' category.grouper.id %}">
                             <span>View {{ category.list|length|add:"-5" }} more internships in {{ category.grouper.name }}</span>
                             <span class="icon is-small">
                         <i class="fas fa-chevron-right"></i>
