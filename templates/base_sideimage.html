@@ -1,32 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <!-- TODO: Find a better way to integrate this and 'base.html' in keeping with DRY -->
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.4.0/js/all.js"></script>
-    {% load static %}
-    <link rel="stylesheet" href="{% static "bulma/styles.css" %}">
-    <link rel="stylesheet" href="{% static "truncate-overflow.css" %}">
+    <link rel="stylesheet" href="{% static 'bulma/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/truncate-overflow.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158286463-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'UA-158286463-1');
-    </script>
-    <script src="{% static "burger.js" %}"></script>
-    <script src="{% static "spinner.js" %}"></script>
-    <link href="{% static "index.css" %}" rel="stylesheet">
+    {% include 'ga.html' %}
+    <script src="{% static 'js/burger.js' %}"></script>
+    <script src="{% static 'js/spinner.js' %}"></script>
+    <script src="{% static 'css/index.css' %}"></script>
     {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %} - COVINTERN</title>
 </head>
 <body>
 <div id="load">
