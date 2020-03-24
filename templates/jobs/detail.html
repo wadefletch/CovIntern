@@ -50,8 +50,8 @@
             {% endfor %}
             <div style="margin: -0.6em 0 1em 1em;">
                 <a href="{% url 'jobs:category' job.category.id %}" class="is-size-7">
-                    View {{ related_jobs|length|add:-5 }} more internships in <b>{{ job.category.name }}</b> <i
-                        class="fas fa-chevron-right"></i>
+                    View {{ related_jobs|length|add:-5 }} more internships in <b>{{ job.category.name }}</b>
+                    <i class="fas fa-chevron-right"></i>
                 </a>
             </div>
             <div class="is-hidden-desktop">

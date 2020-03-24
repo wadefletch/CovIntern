@@ -13,7 +13,7 @@ class JobListView(generic.ListView):
 
 class JobCategoryListView(generic.ListView):
     model = Job
-    paginate_by = 20
+    paginate_by = 15
     template_name = 'jobs/category.html'
 
     def get_queryset(self):
