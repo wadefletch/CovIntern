@@ -1,7 +1,7 @@
 from .settings import *
 import django_heroku
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['django-env.eba-ichhqupp.us-west-2.elasticbeanstalk.com', 'covintern.com']
 
