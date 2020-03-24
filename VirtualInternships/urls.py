@@ -20,6 +20,4 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('jobs/', include('jobs.urls', namespace='jobs')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('auth.urls', namespace='auth')),
 ]
