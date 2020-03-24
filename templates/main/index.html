@@ -20,18 +20,17 @@
     </p>
 
     <div class="subscribe_form">
-        <p>Sign up for our newsletter to get latest updates</p>
-        <form id="subscribe" method='POST'>{% csrf_token %}
-            <input class="input" id="email" type="email" name="email" placeholder="your@email.com">
-            <button class='button' type="submit" value="Subscribe">Subscribe</button>
+        <p class="subtitle is-5">Sign up to get recommendations delivered right to your inbox.</p>
+        <form id="subscribe" method='POST' autocomplete="off">{% csrf_token %}
+            <div class="field has-addons">
+                <p class="control is-expanded">
+                    <input class="input is-medium has-background-light" id="email" type="email" name="email"
+                           placeholder="your@email.com">
+                </p>
+                <p class="control">
+                    <button class='button is-warning is-medium' type="submit" value="Subscribe">Subscribe</button>
+                </p>
+            </div>
         </form>
-    </div>
-
-    <div class="">
-        <div class="buttons">
-            <a class="button is-warning is-large" href="{% url 'jobs:index' %}">
-                Find an Internship
-            </a>
-        </div>
     </div>
 {% endblock %}

@@ -90,3 +90,9 @@ a.navbar-link:hover {
   @extend .navbar-link;
   background-color: white !important;
 }
+
+.input, .input:hover, .input:active, .input:focus-within, .input:focus {
+  @extend .input;
+  box-shadow: none !important;
+  border-color: transparent;
+}
