@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ job_list.0.category.name }} Internships{% endblock %}
+
 {% block content %}
     {% include 'jobs/components/back_button.html' %}
     <h1 class="title">{{ job_list.0.category.name }} Internships</h1>
-    <p class="subtitle">We found {{ page_obj.paginator.count }} remote internships in {{ job_list.0.category.name }}.</p>
+    <p class="subtitle">We found {{ page_obj.paginator.count }} remote internships
+        in {{ job_list.0.category.name }}.</p>
 
     <div class="columns">
         <div class="column is-three-quarters-desktop is-full-touch">

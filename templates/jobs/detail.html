@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ job.title }} at {{ job.company.name }}{% endblock %}
+
 {% block content %}
     {% include 'jobs/components/back_button.html' %}
     <div class="columns">
