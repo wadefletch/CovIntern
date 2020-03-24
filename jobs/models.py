@@ -38,18 +38,18 @@ class Job(models.Model):
     @property
     def time_since_posted(self):
         time = timezone.now()
-        if self.posted.minute == time.minute:
+        if self.posted.hour == time.hour:
             delta = str(time.minute - self.posted.minute)
-            return delta + f" minute{'s'*(int(delta) > 1)} ago"
+            return delta + f" minute{'s'*(int(delta) != 1)} ago"
         elif self.posted.day == time.day:
             delta = str(time.hour - self.posted.hour)
-            return delta + f" hour{'s' * (int(delta) > 1)} ago"
+            return delta + f" hour{'s' * (int(delta) != 1)} ago"
         elif self.posted.month == time.month:
             delta = str(time.day - self.posted.day)
-            return delta + f" day{'s' * (int(delta) > 1)} ago"
+            return delta + f" day{'s' * (int(delta) != 1)} ago"
         elif self.posted.year == time.year:
             delta = str(time.month - self.posted.month)
-            return delta + f" month{'s' * (int(delta) > 1)} ago"
+            return delta + f" month{'s' * (int(delta) != 1)} ago"
         else:
             return 'A while ago'
 

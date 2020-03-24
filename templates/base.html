@@ -36,19 +36,6 @@
                 <div class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href="{% url 'jobs:index' %}">Jobs</a>
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
-                                Categories
-                            </a>
-
-                            <div class="navbar-dropdown">
-                                {% for category in categories %}
-                                    <a class="navbar-item" href="{% url 'jobs:category' category.id %}">
-                                        {{ category.name }}
-                                    </a>
-                                {% endfor %}
-                            </div>
-                        </div>
                         <a class="navbar-item" href="{% url 'main:about' %}">About</a>
                     </div>
                     <div class="navbar-end">

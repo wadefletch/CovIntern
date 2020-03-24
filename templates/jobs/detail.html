@@ -35,6 +35,7 @@
                 <p>{{ job.qualifications }}</p>
             </div>
             {% include 'jobs/components/disclaimers.html' %}
+            {% include 'jobs/components/back_button.html' %}
         </div>
         <div class="column is-one-quarter is-hidden-touch">
             <div class="title is-5"><span class="is-size-6 has-text-weight-semibold">More jobs in</span><br>
@@ -49,5 +50,4 @@
             </div>
         </div>
     </div>
-    {% include 'jobs/components/back_button.html' %}
 {% endblock %}

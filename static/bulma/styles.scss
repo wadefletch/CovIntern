@@ -17,7 +17,6 @@ $box-radius: $radius;
 
 // Category overrides
 html, body {
-  //background-color: #fafafa;
   height: 100%;
   margin: 0;
 }
@@ -76,4 +75,14 @@ a.box:hover {
   100% {
     transform: rotate(360deg);
   }
+}
+
+a.navbar-item:hover, a.navbar-item:focus-within {
+  @extend .navbar-item;
+  background-color: white !important;
+}
+
+a.navbar-link:hover {
+  @extend .navbar-link;
+  background-color: white !important;
 }

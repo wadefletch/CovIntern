@@ -3,18 +3,48 @@
 {% block content %}
     {% include 'jobs/components/back_button.html' %}
     <h1 class="title">{{ job_list.0.category.name }} Internships</h1>
+    <p class="subtitle">We found {{ page_obj.paginator.count }} remote internships in {{ job_list.0.category.name }}.</p>
 
     <div class="columns">
         <div class="column is-three-quarters-desktop is-full-touch">
             {% for job in job_list %}
                 {% include 'jobs/components/individual_listing.html' with job=job %}
             {% endfor %}
+
+            <div class="columns is-mobile is-vcentered">
+                <div class="column has-text-left">
+                    {% if page_obj.has_previous %}
+                        <a class="button is-warning is-hidden-touch" href="?page=1">FIRST</a>
+                        <a class="button is-warning" href="?page={{ page_obj.previous_page_number }}">
+                            <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                            <span>PREV</span>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="column has-text-centered">
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </div>
+                <div class="column has-text-right">
+                    {% if page_obj.has_next %}
+                        <a class="button is-warning" href="?page={{ page_obj.next_page_number }}">
+                            <span>NEXT</span>
+                            <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a class="button is-warning is-hidden-touch" href="?page={{ page_obj.paginator.num_pages }}">LAST</a>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
         <div class="column is-one-quarter-desktop is-hidden-touch">
             <div class="title is-5">Other Categories</div>
             {% for category in categories %}
-                <a class="button is-light is-fullwidth" style="margin-bottom: 0.6em;">{{ category.name }}</a>
+                <a href="{% url 'jobs:category' pk=category.id %}" class="button is-light is-fullwidth"
+                   style="margin-bottom: 0.6em;">{{ category.name }}</a>
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
