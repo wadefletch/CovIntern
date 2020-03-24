@@ -96,3 +96,7 @@ a.navbar-link:hover {
   box-shadow: none !important;
   border-color: transparent;
 }
+
+p:not([class]) {
+  margin-bottom: 1em;
+}

@@ -9351,4 +9351,8 @@ a.navbar-link:hover {
   border-color: transparent;
 }
 
+p:not([class]) {
+  margin-bottom: 1em;
+}
+
 /*# sourceMappingURL=styles.css.map */
