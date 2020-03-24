@@ -1,5 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_sideimage.html' %}
+
+{% block image %}
+    https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80{% endblock %}
 
 {% block content %}
     <h1 class="title">About</h1>
+    <p class="subtitle">What we do</p>
+
+    <p class="content">
+        In the midst of the COVID-19 outbreak, most American college students are home from school, often with limited
+        academic responsibilities and many companies are moving operations online to slow the outbreak's spread.
+        Students remaining quarantined in their home can gain valuable experience in industry during this time through
+        remote internships.
+    </p>
+    <p class="content">
+        While remote internships have existed for some time, they're now more popular and needed than ever, when
+        multiple states are under "Stay-at-Home" orders and millions of students are home from college. COVINTERN
+        connects employers with positions and programs to fill with students from top universities with avaliable time
+        and a desire to learn.
+    </p>
+    <p class="content">
+        COVINTERN was created by Wade Fletcher, a student at Indiana University.
+    </p>
 {% endblock %}
