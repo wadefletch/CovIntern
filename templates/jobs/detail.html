@@ -51,12 +51,14 @@
                 {% for job in related_jobs|slice:":5" %}
                     {% include 'jobs/components/mini_listing.html' with job=job %}
                 {% endfor %}
-                <div style="margin: -0.6em 0 1em 1em;">
-                    <a href="{% url 'jobs:category' job.category.id %}" class="is-size-7">
-                        View {{ related_jobs|length|add:-5 }} more internships in <b>{{ job.category.name }}</b>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
+                {% if related_jobs|length > 5 %}
+                    <div style="margin: -0.6em 0 1em 1em;">
+                        <a href="{% url 'jobs:category' job.category.id %}" class="is-size-7">
+                            View {{ related_jobs|length|add:-5 }} more internships in <b>{{ job.category.name }}</b>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                {% endif %}
             {% endif %}
             <div class="is-hidden-desktop">
                 {% include 'jobs/components/back_button.html' %}
