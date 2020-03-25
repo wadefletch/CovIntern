@@ -3,13 +3,9 @@
 {% block title %}Search Results{% endblock %}
 
 {% block content %}
-    <h1 class="title">Search Results</h1>
+    <h1 class="title">Search Results for {{ query }}</h1>
 
-    {% include 'jobs/components/searchbar.html' %}
-
-    <script>
-        $(".searchbar").val("{{ view.args.0 }}");
-    </script>
+    {% include 'jobs/components/searchbar.html' with query=query%}
 
     {% for job in job_list %}
         {% include 'jobs/components/individual_listing.html' with job=job %}
