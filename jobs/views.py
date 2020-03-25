@@ -46,7 +46,6 @@ class JobDetailView(generic.DetailView):
 class JobSearchResultsListView(generic.ListView):
     model = Job
     template_name = 'jobs/search_results.html'
-    extra_context = {'query', }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
