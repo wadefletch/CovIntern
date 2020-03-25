@@ -1,4 +1,4 @@
-<form action="{% url 'jobs:search_results' %}" method="get">
+<form action="{% url 'jobs:search_results' %}" method="get" autocomplete="off">
     <div class="field has-addons" style="margin-bottom: 1.5em;">
         <div class="control is-expanded">
             <input class="input has-background-light" name="q" type="text" placeholder="Find an internship" {% if query %}value="{{ query }}"{% endif %}>
