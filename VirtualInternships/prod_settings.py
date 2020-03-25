@@ -1,5 +1,8 @@
-from .settings import *
 import django_heroku
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+from .settings import *
 
 DEBUG = False
 
@@ -28,45 +31,15 @@ AWS_SECRET_ACCESS_KEY = 'xZC9krWBaat65SBql8aN+EXP8WStcCSAMlah1sYe'
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-INSTALLED_APPS += ['raven.contrib.django.raven_compat']
+# Sentry Logging
+sentry_sdk.init(
+    dsn="https://bc6a9f6c56974ec6881770c11088d9f6@sentry.io/5174690",
+    integrations=[DjangoIntegration()],
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-    },
-    'handlers': {
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-        },
-        'console': {
-            'level': 'WARNING',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['sentry'],
-            'level': 'WARNING',
-            'propagate': True,
-        },
-        'raven': {
-            'level': 'WARNING',
-            'handlers': ['sentry'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'WARNING',
-            'handlers': ['sentry'],
-            'propagate': False,
-        },
-    }
-}
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 # Activate Django-Heroku.
 django_heroku.settings(locals(), logging=False)
