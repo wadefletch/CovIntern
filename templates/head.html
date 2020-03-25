@@ -1,21 +1,30 @@
 {% load static %}
 
+<!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property='og:title' content="COVINTERN"/>
 <meta property='og:image' content="{% static 'images/linkedin_preview.png' %}"/>
+<meta property='og:description' content="Remote internships for quarantined students"/>
+<meta property='og:url' content="{{ request.path }}" />
 
+<!-- ICONS -->
 <script defer src="https://use.fontawesome.com/releases/v5.4.0/js/all.js"></script>
 
+<!-- STYLES -->
 <link rel="stylesheet" href="{% static 'bulma/styles.css' %}">
 <link rel="stylesheet" href="{% static 'css/truncate-overflow.css' %}">
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
+<!-- JQUERY -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 
+<!-- SCRIPTS -->
 <script src="{% static 'js/burger.js' %}"></script>
 <script src="{% static 'js/spinner.js' %}"></script>
 
+<!-- FAVICONS -->
 <link rel="icon" type="image/png" href="{% static 'favicons/favicon-16x16.png' %}" sizes="16x16">
 <link rel="icon" type="image/png" href="{% static 'favicons/favicon-32x32.png' %}" sizes="32x32">
 <link rel="icon" type="image/png" href="{% static 'favicons/favicon-64x64.png' %}" sizes="64x64">
