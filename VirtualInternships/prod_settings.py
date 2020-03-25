@@ -33,32 +33,33 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d: %(message)s'
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
         },
         'simple': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
-        },
+            'format': '%(levelname)s %(message)s'
+        }
     },
     'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'verbose'
         }
     },
     'loggers': {
-        '': {
+        'testlogger': {
             'handlers': ['console'],
             'level': 'INFO',
-            'propagate': True
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
+        }
     }
 }
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+django_heroku.settings(locals(), logging=False)
