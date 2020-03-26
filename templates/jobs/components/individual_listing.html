@@ -1,7 +1,7 @@
 <div class="box">
     <article class="media">
         <figure class="media-left">
-            <img src="{{ job.company.logo.url }}" height="64" width="64" alt="{{ job.company.name }} logo">
+            <img src="{% if job.company.logo %}{{ job.company.logo.url }}{% endif %}" height="64" width="64" alt="{{ job.company.name }} logo">
         </figure>
         <figure class="media-content">
             <div class="title is-4 is-size-5-mobile">{{ job.title }}</div>

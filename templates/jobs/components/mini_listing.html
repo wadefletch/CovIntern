@@ -1,13 +1,15 @@
+{% load upto %}
+
 <a class="box getBigger" href="{% url 'jobs:detail' job.id %}" style="padding: 1em;">
     <article class="media">
         <figure class="media-left">
-            <img src="{{ job.company.logo.url }}" height="24" width="24" alt="{{ job.company.name }} logo">
+            <img src="{% if job.company.logo %}{{ job.company.logo.url }}{% endif %}" height="24" width="24" alt="{{ job.company.name }} logo">
         </figure>
         <figure class="media-content">
             <div class="title is-6">{{ job.title }}</div>
             <div class="subtitle is-7" style="margin-bottom: 0.2em;">
                 <b>{{ job.company.name }}</b><br>
-                Posted {{ job.time_since_posted }}
+                Posted {{ job.posted|timesince|upto:"," }} ago
             </div>
         </figure>
     </article>
