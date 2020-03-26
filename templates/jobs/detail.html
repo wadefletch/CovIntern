@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load upto %}
+
 
 {% block title %}{{ job.title }} at {{ job.company.name }}{% endblock %}
 
@@ -12,13 +14,15 @@
                     <h1 class="title">{{ job.title }}</h1>
                     <h2 class="subtitle" style="margin-bottom: 0.2em;">
                         {{ job.company.name }} // {{ job.company.location }} (Remote)</h2>
-                    <a href="http://{{ job.company.url }}">{{ job.company.url }}</a>
+                    <a href="{{ job.company.url }}">{{ job.company.url }}</a>
                 </figure>
                 <figure class="media-right is-hidden-mobile">
                     <a href="{{ job.application_link }}">
                         <button class="button is-warning"><b><i class="fas fa-edit"></i> APPLY NOW</b></button>
                     </a>
-                    <div class="has-text-centered is-uppercase has-text-grey is-size-6">{{ job.time_since_posted }}</div>
+                    <div class="has-text-centered is-uppercase has-text-grey is-size-6">{{ job.posted|timesince|upto:"," }}
+                        ago
+                    </div>
                 </figure>
             </article>
 
