@@ -1,7 +1,6 @@
-from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.utils import timezone
-from datetime import timedelta
+
 
 class Company(models.Model):
     name = models.CharField(max_length=128)
@@ -14,6 +13,15 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def formatted_url(self):
+        if self.url.startswith('http://'):
+            return self.url[7:]
+        elif self.url.startswith('https://'):
+            return self.url[8:]
+        else:
+            return self.url
 
 
 class Category(models.Model):

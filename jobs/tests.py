@@ -19,6 +19,33 @@ class CompanyModelTest(TestCase):
     def test_verbose_name_plural(self):
         self.assertEqual(str(Company._meta.verbose_name_plural), "companies")
 
+    def test_formatted_url_http(self):
+        c = Company(
+            name='Google',
+            location='Mountain View, CA',
+            url='http://google.com'
+        )
+
+        self.assertEqual(c.formatted_url, 'google.com')
+
+    def test_formatted_url_https(self):
+        c = Company(
+            name='Google',
+            location='Mountain View, CA',
+            url='https://google.com'
+        )
+
+        self.assertEqual(c.formatted_url, 'google.com')
+
+    def test_formatted_url_no_protocol(self):
+        c = Company(
+            name='Google',
+            location='Mountain View, CA',
+            url='google.com'
+        )
+
+        self.assertEqual(c.formatted_url, 'google.com')
+
 
 class CategoryModelTest(TestCase):
     def test_string_representation(self):

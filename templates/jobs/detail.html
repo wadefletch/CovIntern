@@ -14,7 +14,7 @@
                     <h1 class="title">{{ job.title }}</h1>
                     <h2 class="subtitle" style="margin-bottom: 0.2em;">
                         {{ job.company.name }} // {{ job.company.location }} (Remote)</h2>
-                    <a href="{{ job.company.url }}">{{ job.company.url }}</a>
+                    <a href="{{ job.company.url }}">{{ job.company.formatted_url }}</a>
                 </figure>
                 <figure class="media-right is-hidden-mobile">
                     <a href="{{ job.application_link }}">
