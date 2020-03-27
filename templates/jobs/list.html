@@ -39,6 +39,7 @@
                         <p class="subtitle has-text-white-ter">We'll email you with recommendations for remote
                             internships you might be interested in.</p>
                         <form id="subscribe" method='POST' autocomplete="off">
+                            {% csrf_token %}
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
                                     <input class="input" type="text" placeholder="your@email.here">
