@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_new_header.html' %}
 
 {% block title %}All Internships{% endblock %}
 
 {% block content %}
-    <h1 class="title">Find an Internship</h1>
-    <p class="subtitle">Get connected with remote internships at top startups and companies.</p>
+    <h1 class="title has-text-white-ter is-1">Find an Internship</h1>
+    <p class="subtitle has-text-white-ter is-4">Get connected with remote internships at top startups and companies.</p>
 
     {% regroup job_list by category as categories_list %}
 
@@ -13,24 +13,47 @@
             {% include 'jobs/components/searchbar.html' with query=None %}
 
             {% for category in categories_list %}
-                <h1 class="title is-4 has-text-{{ category.grouper.color }}">{{ category.grouper.name }}</h1>
+                <h1 class="title is-4 has-text-{{ category.grouper.color }}"><span
+                        class="{% if forloop.counter == 1 %}has-text-white-ter{% endif %}">{{ category.grouper.name }}</span>
+                </h1>
                 {% for job in category.list|slice:":5" %}
                     {% include 'jobs/components/individual_listing.html' with job=job %}
                 {% endfor %}
                 {% if category.list|length > 5 %}
                     <div class="has-text-right" style="margin: -0.6em 1em 1em 0;">
                         <a class="button is-warning is-small" href="{% url 'jobs:category' category.grouper.id %}">
-                            <span>View {{ category.list|length|add:"-5" }} more internships in {{ category.grouper.name }}</span>
+                            <span>View {{ category.list|length|add:"-5" }} more internships
+                                in {{ category.grouper.name }}</span>
                             <span class="icon is-small">
-                        <i class="fas fa-chevron-right"></i>
-                    </span>
+                                <i class="fas fa-chevron-right"></i>
+                            </span>
                         </a>
+                    </div>
+                {% endif %}
+
+                {% if forloop.counter == 2 %}
+                    <div class="box has-background-warning">
+                        <h1 class="title has-text-white-ter">
+                            Join our mailing list!
+                        </h1>
+                        <p class="subtitle has-text-white-ter">We'll email you with recommendations for remote
+                            internships you might be interested in.</p>
+                        <form id="subscribe" method='POST' autocomplete="off">
+                            <div class="field is-grouped">
+                                <div class="control is-expanded">
+                                    <input class="input" type="text" placeholder="your@email.here">
+                                </div>
+                                <div class="control">
+                                    <input type="submit" class="button is-primary" value="Subscribe">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 {% endif %}
             {% endfor %}
         </div>
         <div class="column is-one-quarter-desktop is-hidden-mobile"
-             style="height: 100%; margin-top: 115px; position: sticky; position: -webkit-sticky; top: 6em;">
+             style="height: 100%; margin-top: 18em; position: sticky; position: -webkit-sticky; top: 6em;">
             <div class="title is-5">Other Categories</div>
             <div class="buttons">
                 {% for category in categories_list %}

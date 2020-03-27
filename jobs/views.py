@@ -1,14 +1,22 @@
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views import generic
 
+from .forms import JobCreationMultiForm, MailchimpSubscribeForm
 from .models import Category, Job
+from .utils import SendSubscribeMail
 
 
-class JobListView(generic.ListView):
+class JobListView(generic.ListView, generic.edit.FormMixin):
     model = Job
     template_name = 'jobs/list.html'
     queryset = Job.objects.all().order_by('category')
+    form_class = MailchimpSubscribeForm
+
+    def form_valid(self, form):
+        SendSubscribeMail(form.cleaned_data['email'])
+        return super().form_valid(form)
 
 
 class JobCategoryListView(generic.ListView):
@@ -74,5 +82,12 @@ class JobSearchResultsListView(generic.ListView):
 
 
 class JobCreateView(generic.CreateView):
-    model = Job
-    fields = ('title',)
+    form_class = JobCreationMultiForm
+    template_name = 'jobs/job_form.html'
+
+    def get_success_url(self):
+        return reverse('jobs:detail', kwargs={'pk': self.object['job'].pk})
+
+
+class AboutView(generic.TemplateView):
+    template_name = 'jobs/about.html'

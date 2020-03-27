@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     # My Own
     'jobs.apps.JobsConfig',
-    'main.apps.MainConfig'
 ]
 
 MIDDLEWARE = [

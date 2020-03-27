@@ -3,6 +3,7 @@ from django.template import Context, Template
 from django.test import TestCase
 from django.utils import timezone
 
+from .forms import EMPTY_EMAIL_ERROR, INVALID_EMAIL_ERROR, MailchimpSubscribeForm
 from .models import Category, Company, Job
 
 
@@ -68,7 +69,6 @@ class JobModelTest(TestCase):
                 location='Mountain View, CA',
                 url='google.com'
             ),
-            hours_per_week=30,
             application_link='google.com',
             category=Category.objects.create(
                 name='Data Science'
@@ -90,3 +90,27 @@ class UpToTemplateTagTest(TestCase):
         )
         rendered_template = template_to_render.render(context)
         self.assertInHTML('<p>Posted 22 hours ago</p>', rendered_template)
+
+
+class JobListViewTest(TestCase):
+    def test_uses_list_template(self):
+        response = self.client.get('/jobs/')
+        self.assertTemplateUsed(response, 'jobs/list.html')
+
+    def test_index_page_uses_mailchimp_form(self):
+        response = self.client.get('/jobs/')
+        self.assertIsInstance(response.context['form'], MailchimpSubscribeForm)
+
+    def test_form_validation_for_blank_email(self):
+        form = MailchimpSubscribeForm(data={'email': ''})
+        self.assertEqual(form.errors['email'], [EMPTY_EMAIL_ERROR])
+
+    def test_form_validation_for_invalid_email(self):
+        form = MailchimpSubscribeForm(data={'email': 'not_an_email'})
+        self.assertEqual(form.errors['email'], [INVALID_EMAIL_ERROR])
+
+
+class AboutViewTest(TestCase):
+    def test_uses_about_template(self):
+        response = self.client.get('/jobs/about/')
+        self.assertTemplateUsed(response, 'jobs/about.html')

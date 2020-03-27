@@ -4,8 +4,8 @@ from django.utils import timezone
 
 class Company(models.Model):
     name = models.CharField(max_length=128)
-    location = models.CharField(max_length=64)
-    url = models.URLField()
+    location = models.CharField(max_length=64, help_text='We know this is for a remote position, but applicants still want to know where a potential employer\'s HQ is located.')
+    url = models.URLField(help_text="This should be the url of your company's homepage, not your job posting or application.")
     logo = models.ImageField(blank=True)
 
     class Meta:
@@ -25,7 +25,7 @@ class Company(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, verbose_name='Company Name')
     color = models.CharField(max_length=32, default='dark')
 
     class Meta:
@@ -38,12 +38,13 @@ class Category(models.Model):
 class Job(models.Model):
     title = models.CharField(max_length=128)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    hours_per_week = models.IntegerField()
     application_link = models.URLField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    application_deadline = models.DateField(blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     qualifications = models.TextField()
     posted = models.DateTimeField(default=timezone.now)
+    contact_email = models.EmailField(help_text='This won\'t be shared with users, rather this is so our team can get in touch with you should we have any issues.')
 
     def __str__(self):
         return f'{self.title} @ {self.company.name}'

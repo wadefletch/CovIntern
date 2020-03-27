@@ -5,11 +5,14 @@
 {% block title %}{{ job.title }} at {{ job.company.name }}{% endblock %}
 
 {% block content %}
-    {% include 'jobs/components/back_button.html' %}
     <div class="columns">
         <div class="column is-three-quarters">
-            <article class="media box">
-                <figure class="media-left"><img src="{{ job.company.logo.url }}" height="64" width="64"></figure>
+            <article class="media" style="margin-bottom: 2em;">
+                <figure class="media-left">
+                    {% if job.company.logo %}
+                        <img src="{{ job.company.logo.url }}" height="64" width="64" alt="{{ job.company.name }}">
+                    {% endif %}
+                </figure>
                 <figure class="media-content">
                     <h1 class="title">{{ job.title }}</h1>
                     <h2 class="subtitle" style="margin-bottom: 0.2em;">
@@ -20,7 +23,8 @@
                     <a href="{{ job.application_link }}">
                         <button class="button is-warning"><b><i class="fas fa-edit"></i> APPLY NOW</b></button>
                     </a>
-                    <div class="has-text-centered is-uppercase has-text-grey is-size-6">{{ job.posted|timesince|upto:"," }}
+                    <div class="has-text-centered is-uppercase has-text-grey is-size-6"
+                         style="margin-top: 0.5em;">{{ job.posted|timesince|upto:"," }}
                         ago
                     </div>
                 </figure>
@@ -49,7 +53,8 @@
         </div>
 
         <div class="column is-one-quarter">
-            <div class="title is-5"><span class="is-size-6 has-text-weight-normal" style="color: hsl(0, 0%, 29%);">More jobs in</span><br>
+            <div class="title is-5"><span class="is-size-6 has-text-weight-normal" style="color: hsl(0, 0%, 29%);">More
+                jobs in</span><br>
                 {{ job.category.name }}</div>
             {% if related_jobs %}
                 {% for job in related_jobs|slice:":5" %}

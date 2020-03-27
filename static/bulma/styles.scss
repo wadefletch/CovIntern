@@ -5,15 +5,17 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+
 
 // Update Bulma's global variables
-$family-sans-serif: "Open Sans", sans-serif;
+$family-sans-serif: "Lato", "Open Sans", sans-serif;
 $fullhd-enabled: false;
 $warning: #e84545;
 $primary: #2b2e4a;
-$link: $primary;
-$info: $warning;
-$background: #f5f5f5;
+$primary-lighter: #40476b;
+$info: #5c6595;
+$background: #f6f9fc;
 $light: #e8e8e8;
 
 html {
@@ -21,6 +23,12 @@ html {
   background: $background !important;
   height: 100%;
   margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 // Import the rest of bulma
@@ -33,6 +41,8 @@ html {
 .searchbar {
   @extend .input;
   box-shadow: none;
+  @extend .box;
+  background: $white-ter !important;
 }
 
 .button {
@@ -40,6 +50,8 @@ html {
   @extend .getBigger;
   font-weight: bold;
   text-transform: uppercase;
+  box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.15);
+  border: none !important;
 }
 
 .getBigger {
@@ -87,9 +99,11 @@ a.box:hover {
 
 .searchbar.input, .searchbar.input:hover, .searchbar.input:active, .searchbarinput:focus-within, .searchbar.input:focus {
   @extend .input;
-  box-shadow: none !important;
+  //box-shadow: none !important;
   border-color: transparent;
   background: $light !important;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.15);
+
 }
 
 p:not([class]) {
@@ -106,6 +120,48 @@ p:not([class]) {
   width: 100%;
   height: 2em;
   background: $warning;
+}
+
+.breakout {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  z-index: 5;
+  box-shadow: inset 0 -6px 0 0 rgba(0, 0, 0, 0.15), 0px 10px 53px -7px rgba(120, 120, 120, 1);
+}
+
+.newsletter-stripe {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+.headsvg {
+  margin-top: -0.5em;
+  z-index: -1;
+  position: absolute;
+  width: 1440px;
+  object-fit: cover;
+  transform: scaleY(2);
+}
+
+body {
+  position: relative;
+}
+
+.footer-top {
+  background: $primary-lighter;
+  border-radius: 45% 45% 0 0 / 50px;
+  width: 100%;
+  height: 4em;
+}
+
+.footer {
+  background: $primary-lighter;
+  height: 10em;
+  color: $white-ter;
 }
 
 // QuillJS Styles

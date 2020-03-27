@@ -1,9 +1,110 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="POST">
-        {{ form.csrf_token }}
-        {{ form.as_p }}
-        <input type="submit" value="Post Job">
-    </form>
+    <h1 class="title">Post an Internship</h1>
+    <p class="subtitle">This is the subtitle until I figure out what it should be.</p>
+
+    <div class="columns">
+        <div class="column is-three-quarters-tablet is-full-mobile">
+            <form enctype="multipart/form-data" method="post" action="">
+                {% csrf_token %}
+                <div class="box">
+                    <h2 class="title is-4">Job Information</h2>
+
+                    <div class="field">
+                        <label class="label">Job Title</label>
+                        <div class="control">
+                            {{ form.job.title }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Job Category</label>
+                        <div class="control">
+                            <div class="select">
+                                {{ form.job.category }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Job Description</label>
+                        <div class="control">
+                            {{ form.job.description }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Qualifications</label>
+                        <div class="control">
+                            {{ form.job.qualifications }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <lablel class="label">Application Link</lablel>
+                        <div class="control">
+                            {{ form.job.application_link }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Contact Email</label>
+                        <div class="control">
+                            {{ form.job.contact_email }}
+                        </div>
+                        <p class="help">{{ form.job.contact_email.help_text }}</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h2 class="title is-4">Company Information</h2>
+
+                    <div class="field">
+                        <label class="label">Company Name</label>
+                        <div class="control">
+                            {{ form.company.name }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Company Location</label>
+                        <div class="control">
+                            {{ form.company.location }}
+                        </div>
+                        <p class="help">{{ form.company.location.help_text }}</p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Company Website</label>
+                        <div class="control">
+                            {{ form.company.url }}
+                        </div>
+                        <p class="help">{{ form.company.url.help_text }}</p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Company Logo</label>
+                        <div class="control">
+                            {{ form.company.logo }}
+                        </div>
+                    </div>
+
+                </div>
+                <input type="submit" class="button is-warning" value="Post Job">
+            </form>
+        </div>
+
+        <div class="column is-one-quarter-tablet is-hidden-mobile">
+            <h1 class="title is-5">Find top students quickly</h1>
+            <p class="content">
+                COVINTERN uses our network of hundreds of students from top universities to fill your position with a
+                great remote intern.
+            </p>
+            <p class="content">
+                COVINTERN is completely free and will never charge you to list a student opportunity.
+            </p>
+        </div>
+
+    </div>
 {% endblock %}

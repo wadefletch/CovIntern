@@ -1,12 +1,14 @@
 <div class="box">
     <article class="media">
         <figure class="media-left">
-            <img src="{% if job.company.logo %}{{ job.company.logo.url }}{% endif %}" height="64" width="64" alt="{{ job.company.name }} logo">
+            {% if job.company.logo %}
+                <img src="{{ job.company.logo.url }}" height="64" width="64" alt="{{ job.company.name }} logo">
+            {% endif %}
         </figure>
         <figure class="media-content">
             <div class="title is-4 is-size-5-mobile">{{ job.title }}</div>
-            <div class="subtitle is-5 is-size-6-mobile" style="margin-bottom: 0.2em;">{{ job.company.name }}
-                // {{ job.company.location }} (Remote)
+            <div class="subtitle is-5 is-size-6-mobile" style="margin-bottom: 0.2em;">
+                {{ job.company.name }} <span class="is-hidden-mobile">//</span><div class="is-hidden-tablet"></div> {{ job.company.location }} (Remote)
             </div>
             <p class="text is-size-6 truncate-overflow is-hidden-mobile">{{ job.description }}</p>
         </figure>

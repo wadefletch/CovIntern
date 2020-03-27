@@ -1,9 +1,9 @@
 <div id="colorBlock"></div>
 <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation" style="margin-top: 0.5em;">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{% url 'main:index' %}">
+        <div class="navbar-item">
             <h4 class="title is-4 has-text-white">COVINTERN</h4>
-        </a>
+        </div>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
            data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -14,8 +14,8 @@
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="{% url 'jobs:list' %}">Jobs</a>
-            <a class="navbar-item" href="{% url 'main:about' %}">About</a>
+            <a class="navbar-item" href="{% url 'jobs:list' %}">Internships</a>
+            <a class="navbar-item" href="{% url 'jobs:about' %}">About</a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
