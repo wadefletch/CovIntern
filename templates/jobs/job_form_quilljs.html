@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
+    <script>
+        $(window).on('load', function () {
+            /*
+            var icons = Quill.import('ui/icons');
+
+            icons['bold'] = '<i class="fa fa-bold" aria-hidden="true"></i>';
+            icons['italic'] = '<i class="fa fa-italic" aria-hidden="true"></i>';
+            icons['list']['ordered'] = '<i class="fas fa-list-ol" aria-hidden="true"></i>';
+            icons['list']['bullet'] = '<i class="fas fa-list-ul" aria-hidden="true"></i>';
+            */
+
+            var quill1 = new Quill('.quill-editor-container-description', {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', {'list': 'ordered'}, {'list': 'bullet'}],
+                    ]
+                },
+                placeholder: 'What could an intern expect to do and learn at your company? What will they be expected to do?',
+                theme: 'snow',
+            });
+
+            var quill2 = new Quill('.quill-editor-container-qualifications', {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', {'list': 'ordered'}, {'list': 'bullet'}],
+                    ]
+                },
+                placeholder: 'What are you looking for in a candidate? Are there any restrictions on who you\'re looking for?',
+                theme: 'snow',
+            });
+
+            // When something changes in the quill editor, copy those changes into the django field
+            quill1.on('text-change', function () {
+                $('#id_description').val(quill1.root.innerHTML);
+            });
+            quill2.on('text-change', function () {
+                $('#id_qualifications').val(quill2.root.innerHTML);
+            });
+
+            // When the page loads, get whatever value was in the form field and fill the editor
+            $(window).on('load', function () {
+                var v1 = $('#id_description').val();
+                if (v1.length > 0) {
+                    quill1.clipboard.dangerouslyPasteHTML(v1);
+                }
+                var v2 = $('#id_qualifications').val();
+                if (v2.length > 0) {
+                    quill1.clipboard.dangerouslyPasteHTML(v2);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}Post an Internship{% endblock %}
+
+{% block content %}
+    <form class="box" action="" method="POST">
+        {% csrf_token %}
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="id_title">Title</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input id="id_title" class="input" type="text"
+                               placeholder="e.g. Software Engineering Intern">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Description</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form.description }}
+                        <div class="quill-editor-container-description" style="height: 200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Qualifications</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form.qualifications }}
+                        <div class="quill-editor-container-qualifications" style="height: 200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary">
+                            Send message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form.errors }}
+    </form>
+{% endblock %}

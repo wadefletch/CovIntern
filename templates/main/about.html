@@ -1,14 +1,10 @@
-{% extends 'base_sideimage.html' %}
+{% extends 'base.html' %}
 
 {% block title %}About{% endblock %}
 
-{% block image %}
-    https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80
-{% endblock %}
-
 {% block content %}
-    <h1 class="title">About</h1>
-    <p class="subtitle">What we do</p>
+    <h1 class="title">Our mission</h1>
+    <p class="subtitle">What we're doing to help</p>
 
     <p class="content">
         In the midst of the COVID-19 outbreak, most American college students are home from school, often with limited
@@ -27,4 +23,4 @@
     </p>
 
     <a href="{% url 'jobs:list' %}" class="button is-warning is-medium">Find an Internship</a>
-{% endblock %}s
+{% endblock %}

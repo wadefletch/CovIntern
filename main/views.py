@@ -8,7 +8,7 @@ from .utils import SendSubscribeMail
 
 class IndexFormView(generic.FormView):
     form_class = MailchimpSubscribeForm
-    template_name = 'main/index.html'
+    template_name = 'main/index.new.html'
     success_url = reverse_lazy('jobs:list')
 
     def form_valid(self, form):

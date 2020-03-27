@@ -75,5 +75,4 @@ class JobSearchResultsListView(generic.ListView):
 
 class JobCreateView(generic.CreateView):
     model = Job
-    template_name = 'jobs/create.html'
-    fields = ['title', 'company', 'description', 'qualifications']
+    fields = ('title',)

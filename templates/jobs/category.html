@@ -44,8 +44,11 @@
         <div class="column is-one-quarter-desktop is-hidden-touch">
             <div class="title is-5">Other Categories</div>
             {% for category in categories %}
-                <a href="{% url 'jobs:category' pk=category.id %}" class="button is-light is-fullwidth"
-                   style="margin-bottom: 0.6em;">{{ category.name }}</a>
+                <a href="{% url 'jobs:category' pk=category.id %}"
+                   class="button is-light is-fullwidth"
+                   style="margin-bottom: 0.6em;">
+                    {{ category.name }}
+                </a>
             {% endfor %}
         </div>
     </div>
