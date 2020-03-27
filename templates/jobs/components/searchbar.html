@@ -1,7 +1,11 @@
 <form action="{% url 'jobs:search_results' %}" method="get" autocomplete="off">
     <div class="field is-grouped" style="margin-bottom: 1.5em;">
-        <div class="control is-expanded">
-            <input class="input has-background-light searchbar" id="searchbar" name="q" type="text" placeholder="Find an internship" {% if query %}value="{{ query }}"{% endif %}>
+        <div class="control is-expanded has-icons-left">
+            <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+            </span>
+            <input class="input has-background-light searchbar" id="searchbar" name="q" type="text"
+                   placeholder="Find an internship" {% if query %}value="{{ query }}"{% endif %}>
         </div>
         <div class="control">
             <input type="submit" class="button is-warning" value="Search">
