@@ -5,18 +5,12 @@ from django.views import generic
 
 from .forms import JobCreationMultiForm, MailchimpSubscribeForm
 from .models import Category, Job
-from .utils import SendSubscribeMail
 
 
-class JobListView(generic.ListView, generic.edit.FormMixin):
+class JobListView(generic.ListView):
     model = Job
     template_name = 'jobs/list.html'
     queryset = Job.objects.all().order_by('category')
-    form_class = MailchimpSubscribeForm
-
-    def form_valid(self, form):
-        SendSubscribeMail(form.cleaned_data['email'])
-        return super().form_valid(form)
 
 
 class JobCategoryListView(generic.ListView):

@@ -38,15 +38,25 @@
                         </h1>
                         <p class="subtitle has-text-white-ter">We'll email you with recommendations for remote
                             internships you might be interested in.</p>
-                        <form id="subscribe" method='POST' autocomplete="off">
-                            {% csrf_token %}
+                        <form action="https://covintern.us19.list-manage.com/subscribe/post?u=4c2630d88bdfb7cd6ba12970f&amp;id=9ab57e18c7"
+                              id="subscribe"
+                              method='POST'
+                              autocomplete="off"
+                              target="_blank">
                             <div class="field is-grouped">
-                                <div class="control is-expanded">
-                                    <input class="input" type="text" placeholder="your@email.here">
+                                <div class="control is-expanded has-icons-left">
+                                    <input class="input" name="EMAIL" placeholder="your@email.here"
+                                           type="email" value="">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
                                 </div>
                                 <div class="control">
                                     <input type="submit" class="button is-primary" value="Subscribe">
                                 </div>
+                            </div>
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                <input type="text" name="b_4c2630d88bdfb7cd6ba12970f_9ab57e18c7" tabindex="-1" value="">
                             </div>
                         </form>
                     </div>
