@@ -2,6 +2,11 @@ from django.contrib import admin
 
 from .models import Category, Company, Job
 
-admin.site.register(Job)
+
+class JobAdmin(admin.ModelAdmin):
+    list_display = ('title', 'company', 'category', 'posted')
+
+
+admin.site.register(Job, JobAdmin)
 admin.site.register(Category)
 admin.site.register(Company)

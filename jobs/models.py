@@ -38,13 +38,13 @@ class Category(models.Model):
 class Job(models.Model):
     title = models.CharField(max_length=128)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    application_link = models.URLField()
+    application_link = models.CharField(max_length=256)
     application_deadline = models.DateField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
-    qualifications = models.TextField()
+    qualifications = models.TextField(blank=True, null=True)
     posted = models.DateTimeField(default=timezone.now)
-    contact_email = models.EmailField(help_text='This won\'t be shared with users, rather this is so our team can get in touch with you should we have any issues.')
+    contact_email = models.EmailField(blank=True, null=True, help_text='This won\'t be shared with users, rather this is so our team can get in touch with you should we have any issues.')
 
     def __str__(self):
         return f'{self.title} @ {self.company.name}'

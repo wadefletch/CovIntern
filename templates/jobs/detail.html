@@ -39,8 +39,10 @@
                 <p class="title is-4" style="margin-bottom: 0.2em;">Job Description</p>
                 <p class="content">{{ job.description|linebreaks }}</p>
 
-                <p class="title is-4" style="margin: 1em 0 0.2em 0;">Qualifications</p>
-                <p class="content">{{ job.qualifications|linebreaks }}</p>
+                {% if job.qualifications %}
+                    <p class="title is-4" style="margin: 1em 0 0.2em 0;">Qualifications</p>
+                    <p class="content">{{ job.qualifications|linebreaks }}</p>
+                {% endif %}
             </div>
 
             <a class="button is-warning box is-fullwidth is-hidden-tablet" href="{{ job.application_link }}">
