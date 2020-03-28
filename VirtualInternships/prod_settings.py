@@ -41,5 +41,9 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
+# Force HTTPS Setup
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
 # Activate Django-Heroku.
 django_heroku.settings(locals(), logging=False)
