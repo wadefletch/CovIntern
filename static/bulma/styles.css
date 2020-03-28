@@ -9358,7 +9358,6 @@ a.box:hover, a.searchbar:hover {
 }
 .searchbar.input, .searchbar, .searchbar.input:hover, .searchbar.input:active, .searchbarinput:focus-within, .searchbar.input:focus {
   border-color: transparent;
-  background: #e8e8e8 !important;
   box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.15);
 }
 
