@@ -36,7 +36,7 @@
                         <h1 class="title has-text-white-ter">
                             Join our mailing list!
                         </h1>
-                        <p class="subtitle has-text-white-ter">We'll email you with recommendations for remote
+                        <p class="subtitle has-text-white-ter is-size-6-mobile">We'll email you with recommendations for remote
                             internships you might be interested in.</p>
                         <form action="https://covintern.us19.list-manage.com/subscribe/post?u=4c2630d88bdfb7cd6ba12970f&amp;id=9ab57e18c7"
                               id="subscribe"
@@ -65,7 +65,7 @@
         </div>
         <div class="column is-one-quarter-desktop is-hidden-mobile"
              style="height: 100%; margin-top: 18em; position: sticky; position: -webkit-sticky; top: 6em;">
-            <div class="title is-5">Other Categories</div>
+            <div class="title is-5">Categories</div>
             <div class="buttons">
                 {% for category in categories_list %}
                     <a href="{% url 'jobs:category' pk=category.grouper.id %}"
