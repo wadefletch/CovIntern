@@ -184,3 +184,24 @@ body {
   border-radius: 0 0 $radius $radius;
   box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
 }
+
+$featured: #ffdd57;
+
+.featured {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 2px $featured !important;
+}
+
+.featured::before {
+  content: "FEATURED";
+  position: absolute;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75rem;
+  transform: rotate(-90deg);
+  margin-left: -4rem !important;
+  margin-top: 1rem;
+  background: $featured;
+  border-radius: $radius;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  z-index: -1;
+}

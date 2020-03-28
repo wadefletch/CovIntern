@@ -44,6 +44,7 @@ class Job(models.Model):
     description = models.TextField()
     qualifications = models.TextField(blank=True, null=True)
     paid = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
     posted = models.DateTimeField(default=timezone.now)
     contact_email = models.EmailField(blank=True, null=True, help_text='This won\'t be shared with users, rather this is so our team can get in touch with you should we have any issues.')
 
