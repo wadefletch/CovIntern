@@ -20,7 +20,7 @@ class JobCategoryListView(generic.ListView):
 
     def get_queryset(self):
         category = get_object_or_404(Category, id=self.kwargs['pk'])
-        return Job.objects.filter(category=category)
+        return Job.objects.filter(category=category).order_by('-featured', '-posted')
 
     def get_context_data(self, **kwargs):
         # Call class's get_context_data method to retrieve context
