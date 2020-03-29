@@ -88,4 +88,4 @@ class AboutView(generic.TemplateView):
 
 
 class StatusView(generic.TemplateView):
-    template_name = 'status.html'
+    template_name = 'jobs/status.html'
