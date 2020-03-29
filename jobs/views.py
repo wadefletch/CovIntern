@@ -85,3 +85,7 @@ class JobCreateView(generic.CreateView):
 
 class AboutView(generic.TemplateView):
     template_name = 'jobs/about.html'
+
+
+class StatusView(generic.TemplateView):
+    template_name = 'status.html'

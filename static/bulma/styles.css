@@ -9305,7 +9305,7 @@ label.panel-block:hover {
 
 .searchbar {
   box-shadow: none;
-  background: whitesmoke !important;
+  background: white !important;
 }
 
 .button {
@@ -9359,6 +9359,7 @@ a.box:hover, a.searchbar:hover {
 .searchbar.input, .searchbar, .searchbar.input:hover, .searchbar.input:active, .searchbarinput:focus-within, .searchbar.input:focus {
   border-color: transparent;
   box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.15);
+  background: white !important;
 }
 
 p:not([class]) {
@@ -9456,6 +9457,27 @@ body {
   border-radius: 4px;
   padding: 0 0.5rem 0.5rem 0.5rem;
   z-index: -1;
+}
+
+.cancelled {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 2px #e84545 !important;
+}
+
+.not-cancelled {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 2px #48c774 !important;
+}
+
+.internship-checker {
+  background-color: #dcdfe2 !important;
+  box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+#slideShadowCoverFix {
+  width: calc(100% + 30px);
+  height: calc(100% + 30px);
+  padding: 15px;
+  margin: -15px;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=styles.css.map */

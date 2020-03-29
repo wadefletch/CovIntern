@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Internship Status{% endblock %}
+
+{% block head %}
+    <script>
+        window.internships = [];
+
+        function getLogo(name) {
+            let url = `https://autocomplete.clearbit.com/v1/companies/suggest?query=${name}`;
+            $.getJSON(url, function (data) {
+                let logo = (typeof (data[0]) !== 'undefined') ? data[0]['logo'] : "{% static 'images/clearpixel.png' %}";
+                $(`article:contains(${name})`).find('img').attr('src', logo)
+            });
+        }
+
+        function displayInternships(data) {
+            let lines = data.split('\n');
+            let tablehit = false;
+
+            for (let line = 0; line < lines.length; line++) {
+                if (lines[line].startsWith('|')) {
+                    let line_array = lines[line].split('|').slice(1, -1);
+
+                    if (line_array[1].startsWith(':--')) {
+                        tablehit = true;
+                        continue;
+                    }
+
+                    if (tablehit && line_array[0] !== '') {
+                        let box = '';
+
+                        switch (line_array[1]) {
+                            case 'Cancelled':
+                                box = `<div class='box cancelled'>
+                                                <article class='media'>
+                                                    <figure class='media-left' style='height: 48px; width: 48px;'>
+                                                        <img src='${getLogo(line_array[0])}' height="48" width="48" onerror="this.style.display='none'"/>
+                                                    </figure>
+                                                    <figure class='media-content'>
+                                                        <div class="title is-5">${line_array[0]}</div>
+                                                        <div class="subtitle is-6" style="margin-bottom: 0.2em;">
+                                                            Summer 2020 Internship
+                                                        </div>
+                                                    </figure>
+                                                    <figure class='media-right'>
+                                                        <span class='tag is-warning is-light is-medium'>
+                                                            ${line_array[1]}
+                                                        </span>
+                                                    </figure>
+                                                </article>
+                                            </div>`
+                                $('#cancelled').append(
+                                    $('<div/>', {'class': 'column is-half'}).append(box)
+                                );
+                                break;
+                            case 'Not Cancelled':
+                                box = `<div class='box not-cancelled'>
+                                            <article class='media'>
+                                                <figure class='media-left' style='height: 48px; width: 48px;'>
+                                                    <img src='${getLogo(line_array[0])}' height="48" width="48"/>
+                                                </figure>
+                                                <figure class='media-content'>
+                                                    <div class="title is-5">${line_array[0]}</div>
+                                                    <div class="subtitle is-6" style="margin-bottom: 0.2em;">
+                                                        Summer 2020 Internship
+                                                    </div>
+                                                </figure>
+                                                <figure class='media-right'>
+                                                    <span class='tag is-success is-light is-medium'>
+                                                        ${line_array[1]}
+                                                    </span>
+                                                </figure>
+                                            </article>
+                                        </div>`
+                                $('#not-cancelled').append(
+                                    $('<div/>', {'class': 'column is-half'}).append(box)
+                                );
+                                break;
+                        }
+                        line_array.push(box);
+                        window.internships.push(line_array);
+                    }
+                }
+            }
+
+            window.internships = window.internships.sort(function (a, b) {
+                return a[0].localeCompare(b[0]);
+            })
+        }
+
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/gcreddy42/hiring2020/master/README.md',
+            success: function (data) {
+                displayInternships(data)
+            }
+        });
+
+        function binarySearchInternships(items, value) {
+            console.log('Searching for ' + value)
+            var startIndex = 0,
+                stopIndex = items.length - 1,
+                middle = Math.floor((stopIndex + startIndex) / 2);
+
+            while (!(items[middle][0].toUpperCase().startsWith(value.toUpperCase())) && startIndex < stopIndex) {
+                console.log(items[middle][0])
+                if (value.toUpperCase() < items[middle][0].toUpperCase()) {
+                    stopIndex = middle - 1;
+                } else if (value.toUpperCase() > items[middle][0].toUpperCase()) {
+                    startIndex = middle + 1;
+                }
+                middle = Math.floor((stopIndex + startIndex) / 2);
+            }
+            return (items[middle][0].toUpperCase().startsWith(value.toUpperCase())) ? middle : null;
+        }
+
+        $(document).ready(function () {
+            let prev_index = -1;
+
+            $('#searchbar').on('input', function () {
+                let value = $(this).val();
+                if (value.length > 3) {
+                    let current_index = binarySearchInternships(window.internships, value);
+                    let result = window.internships[current_index];
+                    if (current_index !== prev_index) {
+                        $('#result').html(result[3]).fadeIn();
+                        $('#slideShadowCoverFix').slideDown();
+                        getLogo(result[0]);
+                        prev_index = current_index;
+                    }
+                } else if (value.length > 0) {
+                    // Do nothing, leave whatever is there.
+                } else {
+                    prev_index = -1;
+                    $('#slideShadowCoverFix').slideUp();
+                    $('#result').fadeOut().html('');
+                }
+            })
+        })
+
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">Internship Cancellation Status</h1>
+    <p class="subtitle">Has your internship been cancelled or made remote?</p>
+
+
+    <div class="columns" style="flex-direction: row-reverse;">
+        <div class="column is-one-quarter is-hidden-mobile"
+             style="height: 100%; position: sticky; position: -webkit-sticky; top: 4em;">
+            <h3 class="title is-4" style="margin-top: 2em;">About this Data</h3>
+            <p>
+                This data is collected from the
+                <a href="https://github.com/gcreddy42/hiring2020">gcreddy42/hiring2020</a>
+                GitHub repo assembled by <a href="https://www.linkedin.com/in/gcreddy42/">Chaitanya Reddy Gurijala</a>.
+            </p>
+
+            <p>
+                This data is updated in real time relative to the repository, but the repository is only as accurate as
+                the data contributed to it. If you know of a company not listed, or a change from data presented here,
+                please submit a pull request on the repo or direct message <a href="//twitter.com/hiring2020">@hiring2020</a>
+                on Twitter.
+            </p>
+
+        </div>
+        <div class="column is-one-quarter is-hidden-tablet">
+            <h3 class="title is-4">About this Data</h3>
+            <p>
+                This data is collected from the
+                <a href="https://github.com/gcreddy42/hiring2020">gcreddy42/hiring2020</a>
+                GitHub repo assembled by <a href="https://www.linkedin.com/in/gcreddy42/">Chaitanya Reddy Gurijala</a>.
+            </p>
+
+            <p>
+                This data is updated in real time relative to the repository, but the repository is only as accurate as
+                the data contributed to it. If you know of a company not listed, or a change from data presented here,
+                please submit a pull request on the repo or direct message <a href="//twitter.com/hiring2020">@hiring2020</a>
+                on Twitter.
+            </p>
+
+        </div>
+        <div class="column is-three-quarters is-full-mobile">
+
+            <div class="box internship-checker">
+                <h4 class="title is-4" style="margin-bottom: 0.5em;">Has my internship been cancelled?</h4>
+                <div class="field is-grouped">
+                    <div class="control is-expanded has-icons-left">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input class="input searchbar" id="searchbar" name="q" type="text"
+                               placeholder="Find an internship" {% if query %}value="{{ query }}"{% endif %}
+                               autocomplete="off">
+                    </div>
+                    <div class="control">
+                        <input type="submit" class="button is-warning" value="Search">
+                    </div>
+                </div>
+                <div id="slideShadowCoverFix" hidden>
+                    <div id="result" style="overflow: visible;"></div>
+                </div>
+            </div>
+
+            <h3 class="title is-3">Cancelled Internships</h3>
+            <div class="columns is-multiline" id="cancelled"></div>
+
+            <h3 class="title is-3" style="margin-top: 2em;">Not Cancelled Internships</h3>
+            <div class="columns is-multiline" id="not-cancelled"></div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
