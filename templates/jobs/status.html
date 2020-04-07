@@ -32,7 +32,7 @@
                         let box = '';
 
                         switch (line_array[1]) {
-                            case 'Cancelled':
+                            case '❌':
                                 box = `<div class='box cancelled'>
                                                 <article class='media'>
                                                     <figure class='media-left' style='height: 48px; width: 48px;'>
@@ -55,7 +55,7 @@
                                     $('<div/>', {'class': 'column is-half'}).append(box)
                                 );
                                 break;
-                            case 'Not Cancelled':
+                            case '✅':
                                 box = `<div class='box not-cancelled'>
                                             <article class='media'>
                                                 <figure class='media-left' style='height: 48px; width: 48px;'>
