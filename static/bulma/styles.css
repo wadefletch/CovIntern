@@ -9480,4 +9480,8 @@ body {
   overflow: hidden;
 }
 
+img {
+  border-radius: 10px;
+}
+
 /*# sourceMappingURL=styles.css.map */
