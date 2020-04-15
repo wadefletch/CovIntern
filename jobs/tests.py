@@ -3,7 +3,6 @@ from django.template import Context, Template
 from django.test import TestCase
 from django.utils import timezone
 
-from .forms import EMPTY_EMAIL_ERROR, INVALID_EMAIL_ERROR, MailchimpSubscribeForm
 from .models import Category, Company, Job
 
 
@@ -97,17 +96,34 @@ class JobListViewTest(TestCase):
         response = self.client.get('/jobs/')
         self.assertTemplateUsed(response, 'jobs/list.html')
 
-    def test_index_page_uses_mailchimp_form(self):
-        response = self.client.get('/jobs/')
-        self.assertIsInstance(response.context['form'], MailchimpSubscribeForm)
-
-    def test_form_validation_for_blank_email(self):
-        form = MailchimpSubscribeForm(data={'email': ''})
-        self.assertEqual(form.errors['email'], [EMPTY_EMAIL_ERROR])
-
-    def test_form_validation_for_invalid_email(self):
-        form = MailchimpSubscribeForm(data={'email': 'not_an_email'})
-        self.assertEqual(form.errors['email'], [INVALID_EMAIL_ERROR])
+    def test_featured_postings_first(self):
+        c = Company.objects.create(
+            name='Google',
+            location='Mountain View, CA',
+            url='google.com'
+        )
+        j1 = Job.objects.create(
+            title='Data Science Intern',
+            company=c,
+            application_link='google.com',
+            category=Category.objects.create(
+                name='Data Science'
+            ),
+            description='Job Description Text',
+            qualifications='Job Qualifications Here',
+            featured=True
+        )
+        j2 = Job.objects.create(
+            title='Software Engineering Intern',
+            company=c,
+            application_link='google.com',
+            category=Category.objects.create(
+                name='Software Engineering'
+            ),
+            description='Job Description Text',
+            qualifications='Job Qualifications Here',
+            featured=False
+        )
 
 
 class AboutViewTest(TestCase):

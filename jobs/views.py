@@ -3,14 +3,14 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
 
-from .forms import JobCreationMultiForm, MailchimpSubscribeForm
+from .forms import JobCreationMultiForm
 from .models import Category, Job
 
 
 class JobListView(generic.ListView):
     model = Job
     template_name = 'jobs/list.html'
-    queryset = Job.objects.all().order_by('category', '-featured')
+    queryset = Job.objects.all().order_by('category', 'posted', '-featured')
 
 
 class JobCategoryListView(generic.ListView):
