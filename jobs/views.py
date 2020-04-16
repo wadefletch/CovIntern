@@ -10,7 +10,7 @@ from .models import Category, Job
 class JobListView(generic.ListView):
     model = Job
     template_name = 'jobs/list.html'
-    queryset = Job.objects.all().order_by('category', 'posted', '-featured')
+    queryset = Job.objects.all().order_by('category', '-posted', '-featured')
 
 
 class JobCategoryListView(generic.ListView):
