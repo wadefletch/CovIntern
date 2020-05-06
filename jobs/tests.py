@@ -1,12 +1,15 @@
+import datetime
+
 from dateutil.relativedelta import relativedelta
 from django.template import Context, Template
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
 from .models import Category, Company, Job
 
 
-class CompanyModelTest(TestCase):
+class CompanyModelTests(TestCase):
     def test_string_representation(self):
         c = Company(
             name='Google',
@@ -17,7 +20,7 @@ class CompanyModelTest(TestCase):
         self.assertEqual(str(c), c.name)
 
     def test_verbose_name_plural(self):
-        self.assertEqual(str(Company._meta.verbose_name_plural), "companies")
+        self.assertEqual(str(Company._meta.verbose_name_plural), 'companies')
 
     def test_formatted_url_http(self):
         c = Company(
@@ -47,7 +50,7 @@ class CompanyModelTest(TestCase):
         self.assertEqual(c.formatted_url, 'google.com')
 
 
-class CategoryModelTest(TestCase):
+class CategoryModelTests(TestCase):
     def test_string_representation(self):
         c = Category(
             name='Data Science'
@@ -56,10 +59,10 @@ class CategoryModelTest(TestCase):
         self.assertEqual(str(c), c.name)
 
     def test_verbose_name_plural(self):
-        self.assertEqual(str(Category._meta.verbose_name_plural), "categories")
+        self.assertEqual(str(Category._meta.verbose_name_plural), 'categories')
 
 
-class JobModelTest(TestCase):
+class JobModelTests(TestCase):
     def setUp(self):
         self.j = Job.objects.create(
             title='Data Science Intern',
@@ -80,18 +83,18 @@ class JobModelTest(TestCase):
         self.assertEqual(str(self.j), f'{self.j.title} @ {self.j.company.name}')
 
 
-class UpToTemplateTagTest(TestCase):
+class UpToTemplateTagTests(TestCase):
     def test_rendered(self):
         context = Context({'posted': timezone.now() - relativedelta(hours=22, minutes=20)})
         template_to_render = Template(
-            "{% load upto %}"
-            "<p>Posted {{ posted|timesince|upto:',' }} ago</p>"
+            '{% load upto %}'
+            '<p>Posted {{ posted|timesince|upto:', ' }} ago</p>'
         )
         rendered_template = template_to_render.render(context)
         self.assertInHTML('<p>Posted 22 hours ago</p>', rendered_template)
 
 
-class JobListViewTest(TestCase):
+class JobListViewTests(TestCase):
     def test_uses_list_template(self):
         response = self.client.get('/jobs/')
         self.assertTemplateUsed(response, 'jobs/list.html')
@@ -102,31 +105,77 @@ class JobListViewTest(TestCase):
             location='Mountain View, CA',
             url='google.com'
         )
+        ca = Category.objects.create(
+            name='Data Science'
+        )
         j1 = Job.objects.create(
-            title='Data Science Intern',
+            title='Featured Intern',
             company=c,
             application_link='google.com',
-            category=Category.objects.create(
-                name='Data Science'
-            ),
+            category=ca,
             description='Job Description Text',
             qualifications='Job Qualifications Here',
             featured=True
         )
         j2 = Job.objects.create(
-            title='Software Engineering Intern',
+            title='Normal Intern',
             company=c,
             application_link='google.com',
-            category=Category.objects.create(
-                name='Software Engineering'
-            ),
+            category=ca,
             description='Job Description Text',
             qualifications='Job Qualifications Here',
             featured=False
         )
 
+        response = self.client.get(reverse('jobs:list'))
+        self.assertQuerysetEqual(response.context['job_list'], ['<Job: Featured Intern @ Google>', '<Job: Normal Intern @ Google>'])
 
-class AboutViewTest(TestCase):
+    def test_hide_deadline_passed(self):
+        c = Company.objects.create(
+            name='Google',
+            location='Mountain View, CA',
+            url='google.com'
+        )
+        ca = Category.objects.create(
+            name='Data Science'
+        )
+        j1 = Job.objects.create(
+            title='Application Still Open Intern',
+            company=c,
+            application_link='google.com',
+            application_deadline=datetime.datetime.now() + datetime.timedelta(weeks=1),
+            category=ca,
+            description='Job Description Text',
+            qualifications='Job Qualifications Here',
+            featured=True
+        )
+        j2 = Job.objects.create(
+            title='Application Closed Intern',
+            company=c,
+            application_link='google.com',
+            application_deadline=datetime.datetime.now() - datetime.timedelta(weeks=1),
+            category=ca,
+            description='Job Description Text',
+            qualifications='Job Qualifications Here',
+            featured=False
+        )
+        j3 = Job.objects.create(
+            title='Application Closing Today Intern',
+            company=c,
+            application_link='google.com',
+            application_deadline=datetime.datetime.combine(datetime.date.today(), datetime.datetime.max.time()),
+            category=ca,
+            description='Job Description Text',
+            qualifications='Job Qualifications Here',
+            featured=True
+        )
+
+        response = self.client.get(reverse('jobs:list'))
+        print(response.context['job_list'])
+        self.assertQuerysetEqual(response.context['job_list'], ['<Job: Application Closing Today Intern @ Google>', '<Job: Application Still Open Intern @ Google>'])
+
+
+class AboutViewTests(TestCase):
     def test_uses_about_template(self):
         response = self.client.get('/jobs/about/')
         self.assertTemplateUsed(response, 'jobs/about.html')

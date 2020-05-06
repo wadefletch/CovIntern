@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -10,7 +12,7 @@ from .models import Category, Job
 class JobListView(generic.ListView):
     model = Job
     template_name = 'jobs/list.html'
-    queryset = Job.objects.all().order_by('category', '-featured', '-posted')
+    queryset = Job.objects.all().order_by('category', '-featured', '-posted').exclude(application_deadline__lt=datetime.datetime.now())
 
 
 class JobCategoryListView(generic.ListView):
@@ -20,7 +22,7 @@ class JobCategoryListView(generic.ListView):
 
     def get_queryset(self):
         category = get_object_or_404(Category, id=self.kwargs['pk'])
-        return Job.objects.filter(category=category).order_by('-featured', '-posted')
+        return Job.objects.filter(category=category).order_by('-featured', '-posted').exclude(application_deadline__lt=datetime.datetime.now())
 
     def get_context_data(self, **kwargs):
         # Call class's get_context_data method to retrieve context
@@ -40,7 +42,7 @@ class JobDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
 
         context['related_jobs'] = Job.objects.filter(category=self.get_object().category).exclude(
-            id=self.kwargs['pk']).order_by('-posted')
+            id=self.kwargs['pk']).order_by('-posted').exclude(application_deadline__lt=datetime.datetime.now())
         # context['related_jobs'] = Job.objects.all()
         return context
 
@@ -68,7 +70,7 @@ class JobSearchResultsListView(generic.ListView):
         if query != '':
             object_list = Job.objects.annotate(
                 search=SearchVector('title', 'description', 'qualifications'),
-            ).filter(search=query)
+            ).filter(search=query).exclude(application_deadline__lt=datetime.datetime.now())
         else:
             object_list = self.model.objects.all()
 
