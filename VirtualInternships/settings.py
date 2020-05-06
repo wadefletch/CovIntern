@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from django.conf.global_settings import DATETIME_INPUT_FORMATS
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -26,7 +27,6 @@ SECRET_KEY = "csgi5jzcre(-09p5y23=ekyf54ac1)+l)3d19h%1xp#w5iqtin"
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -75,12 +75,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "VirtualInternships.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": os.path.join(BASE_DIR, "db.sqlite3")}}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -92,7 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -102,10 +99,9 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -130,3 +126,5 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 MAILCHIMP_API_KEY = "04a1957c7954701ab029d39f051ca7b8-us19"
 MAILCHIMP_SUBSCRIBE_LIST_ID = "9ab57e18c7"
 
+# Forms
+DATETIME_INPUT_FORMATS += ('%Y-%m-%dT%H:%M',)

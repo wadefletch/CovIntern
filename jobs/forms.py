@@ -1,30 +1,13 @@
 from collections import OrderedDict
-
+import datetime
 from betterforms.multiform import MultiModelForm
 from django import forms
+from django.forms import ModelForm
 
 from .models import Company, Job
 
 
-class BulmaModelForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(BulmaModelForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            field_type = type(visible.field.widget)
-            if field_type in (forms.TextInput, forms.EmailInput, forms.URLInput):
-                visible.field.widget.attrs['class'] = 'input'
-            elif field_type in (forms.Textarea,):
-                visible.field.widget.attrs['class'] = 'textarea'
-                visible.field.widget.attrs['rows'] = 6
-
-            if field_type in (forms.Select,):
-                visible.field.empty_label = None
-
-            if field_type in (forms.URLInput,):
-                visible.field.widget.attrs['placeholder'] = 'https://'
-
-
-class CompanyForm(BulmaModelForm):
+class CompanyForm(ModelForm):
     class Meta:
         model = Company
         fields = '__all__'
@@ -35,15 +18,16 @@ class CompanyForm(BulmaModelForm):
         }
 
 
-class JobForm(BulmaModelForm):
+class JobForm(ModelForm):
     class Meta:
         model = Job
-        fields = ('title', 'application_link', 'category', 'description', 'qualifications', 'contact_email')
+        fields = ('title', 'application_link', 'application_deadline', 'category', 'description', 'qualifications', 'contact_email')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Software Engineering Remote Intern'}),
             'description': forms.Textarea(attrs={'class': 'textarea', 'rows': 6}),
             'qualifications': forms.Textarea(attrs={'class': 'textarea', 'rows': 6}),
             'application_link': forms.URLInput(attrs={'class': 'input', 'placeholder': 'https://'}),
+            'application_deadline': forms.DateTimeInput(attrs={'class': 'input', 'type': 'datetime-local'}),
             'contact_email': forms.EmailInput(attrs={'class': 'input', 'placeholder': 'your@email.com'})
         }
 

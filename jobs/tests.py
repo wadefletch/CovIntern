@@ -2,9 +2,10 @@ import datetime
 
 from dateutil.relativedelta import relativedelta
 from django.template import Context, Template
-from django.test import TestCase
+from django.test import LiveServerTestCase, TestCase
 from django.urls import reverse
 from django.utils import timezone
+from selenium import webdriver
 
 from .models import Category, Company, Job
 
@@ -87,8 +88,8 @@ class UpToTemplateTagTests(TestCase):
     def test_rendered(self):
         context = Context({'posted': timezone.now() - relativedelta(hours=22, minutes=20)})
         template_to_render = Template(
-            '{% load upto %}'
-            '<p>Posted {{ posted|timesince|upto:', ' }} ago</p>'
+            "{% load upto %}"
+            "<p>Posted {{ posted|timesince|upto:', ' }} ago</p>"
         )
         rendered_template = template_to_render.render(context)
         self.assertInHTML('<p>Posted 22 hours ago</p>', rendered_template)
@@ -179,3 +180,24 @@ class AboutViewTests(TestCase):
     def test_uses_about_template(self):
         response = self.client.get('/jobs/about/')
         self.assertTemplateUsed(response, 'jobs/about.html')
+
+
+class JobCreateFormTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Test Category')
+
+    def test_can_create_job(self):
+        data = {
+            'job-title': 'Test Intern',
+            'job-category': self.category.id,
+            'job-description': 'This is the job description.',
+            'job-qualifications': 'These are the relevant qualifications.',
+            'job-application_link': 'https://covintern.com',
+            'job-application_deadline': '2020-10-20T10:12',
+            'job-contact_email': 'wade@covintern.com',
+            'company-name': 'CovIntern',
+            'company-location': 'Columbia, SC',
+            'company-url': 'http://covintern.com',
+        }
+        resp = self.client.post(reverse('jobs:create'), data=data)
+        self.assertEqual(resp.status_code, 302)

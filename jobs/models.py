@@ -6,7 +6,7 @@ class Company(models.Model):
     name = models.CharField(max_length=128)
     location = models.CharField(max_length=64, help_text='We know this is for a remote position, but applicants still want to know where a potential employer\'s HQ is located.')
     url = models.URLField(help_text="This should be the url of your company's homepage, not your job posting or application.")
-    logo = models.ImageField(blank=True)
+    logo = models.ImageField()
 
     class Meta:
         verbose_name_plural = "companies"
@@ -39,7 +39,7 @@ class Job(models.Model):
     title = models.CharField(max_length=128)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     application_link = models.CharField(max_length=256)
-    application_deadline = models.DateField(blank=True, null=True)
+    application_deadline = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     qualifications = models.TextField(blank=True, null=True)
