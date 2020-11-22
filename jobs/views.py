@@ -83,11 +83,3 @@ class JobCreateView(generic.CreateView):
 
     def get_success_url(self):
         return reverse('jobs:detail', kwargs={'pk': self.object['job'].pk})
-
-
-class AboutView(generic.TemplateView):
-    template_name = 'jobs/about.html'
-
-
-class StatusView(generic.TemplateView):
-    template_name = 'jobs/status.html'

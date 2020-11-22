@@ -6,6 +6,7 @@
 /venv/
 .idea/
 *.pyc
+*.log
 .env
 db.sqlite3
 .coverage*

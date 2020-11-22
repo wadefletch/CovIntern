@@ -129,7 +129,8 @@ class JobListViewTests(TestCase):
         )
 
         response = self.client.get(reverse('jobs:list'))
-        self.assertQuerysetEqual(response.context['job_list'], ['<Job: Featured Intern @ Google>', '<Job: Normal Intern @ Google>'])
+        self.assertQuerysetEqual(response.context['job_list'],
+                                 ['<Job: Featured Intern @ Google>', '<Job: Normal Intern @ Google>'])
 
     def test_hide_deadline_passed(self):
         c = Company.objects.create(
@@ -173,7 +174,8 @@ class JobListViewTests(TestCase):
 
         response = self.client.get(reverse('jobs:list'))
         print(response.context['job_list'])
-        self.assertQuerysetEqual(response.context['job_list'], ['<Job: Application Closing Today Intern @ Google>', '<Job: Application Still Open Intern @ Google>'])
+        self.assertQuerysetEqual(response.context['job_list'], ['<Job: Application Closing Today Intern @ Google>',
+                                                                '<Job: Application Still Open Intern @ Google>'])
 
 
 class AboutViewTests(TestCase):

@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include 'head.html' %}
-    {% include 'ga.html' %}
+    {% include 'includes/head.html' %}
+    {% include 'includes/ga.html' %}
     {% block head %}{% endblock %}
-    <title>{% block title %}{% endblock %} - COVINTERN</title>
+    <title>{% block title %}{% endblock %} - CovIntern</title>
 </head>
 <body>
 <div id="load">
     <div id="spinner"></div>
 </div>
-{% include 'nav.html' %}
+{% include 'includes/nav.html' %}
 <div style="width: 100%; height: 7em;"></div>
 <div class="wrapper">
     <div class="section" style="padding-top: 0;">

@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include 'head.html' %}
-    {% include 'ga.html' %}
+    {% include 'includes/head.html' %}
+    {% include 'includes/ga.html' %}
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} - CovIntern</title>
 </head>
@@ -12,7 +12,7 @@
 <div id="load">
     <div id="spinner"></div>
 </div>
-{% include 'nav.html' %}
+{% include 'includes/nav.html' %}
 <div style="width: 100%; height: 4em;"></div>
 <object class="headsvg" data="{% static 'images/PatternThing.svg' %}" type="image/svg+xml"></object>
 <div style="width: 100%; height: 4em;"></div>
@@ -24,10 +24,5 @@
         </div>
     </div>
 </div>
-<!--
-<footer>
-    <object style="transform: scaleY(-1);" class="headsvg" data="{% static 'images/PatternThing.svg' %}" type="image/svg+xml"></object>
-</footer>
--->
 </body>
 </html>
